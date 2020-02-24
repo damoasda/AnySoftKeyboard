@@ -1075,8 +1075,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         final List<CharSequence> suggestionsList = mSuggest.getSuggestions(mWord, false);
         boolean correctionAvailable = mSuggest.hasMinimalCorrection();
-        final boolean typedWordValid =
-                mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
+        final boolean typedWordValid = !mWord.isAtTagsSearchState();
 
         if (mShowSuggestions) {
             correctionAvailable |= typedWordValid;
