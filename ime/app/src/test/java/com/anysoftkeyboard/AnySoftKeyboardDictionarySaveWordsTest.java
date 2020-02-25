@@ -121,7 +121,7 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         // first time
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
                 .addWordToUserDictionary(Mockito.anyString());
@@ -129,44 +129,44 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
                 .notifyAboutWordAdded(Mockito.anyString());
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
                 .addWordToUserDictionary(Mockito.anyString());
         Mockito.verify(getMockCandidateView(), Mockito.never())
                 .notifyAboutWordAdded(Mockito.anyString());
 
         // second time
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.times(1))
                 .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
+        Mockito.verify(getMockCandidateView(), Mockito.times(1))
                 .notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertEquals("hel hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell hell ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hel hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell hell", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hel hel ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Assert.assertEquals("hell hell ", inputConnection.getCurrentTextInInputConnection());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.times(1))
                 .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
+        Mockito.verify(getMockCandidateView(), Mockito.times(1))
                 .notifyAboutWordAdded(Mockito.anyString());
 
         // third time will auto-add
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.times(1))
                 .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
+        Mockito.verify(getMockCandidateView(), Mockito.times(1))
                 .notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertEquals("hel hel hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell hell hell ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hel hel hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell hell hell", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hel hel hel ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
-        Mockito.verify(getMockCandidateView()).notifyAboutWordAdded("hel");
+        Assert.assertEquals("hell hell hell ", inputConnection.getCurrentTextInInputConnection());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hell");
+        Mockito.verify(getMockCandidateView()).notifyAboutWordAdded("hell");
     }
 }
